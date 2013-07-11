@@ -83,12 +83,14 @@ if(require.main == module) {
         .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
         .option('-u, --url <url>', 'Url to index.html')
         .parse(process.argv);
-console.log('Echoing '+program.url);
+//console.log('Echoing '+program.url);
 if (typeof program.url != 'undefined'){
     var downloadedSite = getUrl(program.url);
     var checkJson = checkHtmlFile(DOWNLOADEDHTMLFILE_DEFAULT, program.checks);
+    console.log('Processing downloaded file from: '+program.url);
 } else {
     var checkJson = checkHtmlFile(program.file, program.checks);
+    console.log('Processing file from disk: '+ program.file);
 }
     var outJson = JSON.stringify(checkJson, null, 4);
     console.log(outJson);
