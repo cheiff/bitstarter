@@ -87,10 +87,10 @@ if(require.main == module) {
 if (typeof program.url != 'undefined'){
     var downloadedSite = getUrl(program.url);
     var checkJson = checkHtmlFile(DOWNLOADEDHTMLFILE_DEFAULT, program.checks);
-    console.log('Processing downloaded file from: '+program.url);
+  //  console.log('Processing downloaded file from: '+program.url);
 } else {
     var checkJson = checkHtmlFile(program.file, program.checks);
-    console.log('Processing file from disk: '+ program.file);
+    //console.log('Processing file from disk: '+ program.file);
 }
     var outJson = JSON.stringify(checkJson, null, 4);
     console.log(outJson);
