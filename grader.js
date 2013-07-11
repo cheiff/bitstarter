@@ -26,13 +26,14 @@ var program = require('commander');
 var cheerio = require('cheerio');
 var HTMLFILE_DEFAULT = "index.html";
 var CHECKSFILE_DEFAULT = "checks.json";
+var DOWNLOADEDHTMLFILE_DEFAULT = "downloaded.html";
 
 var rest = require('restler');
  
 var getUrl = function(url){
     if (url!=''){
 	rest.get(url).on('complete',function(response){
-             fs.writeFileSync(HTMLFILE_DEFAULT, response);
+             fs.writeFileSync(DOWNLOADEDHTMLFILE_DEFAULT, response);
 	    //return(response);
 	    //console.log(response);
 	});
@@ -85,9 +86,10 @@ if(require.main == module) {
 console.log('Echoing '+program.url);
 if (typeof program.url != 'undefined'){
     var downloadedSite = getUrl(program.url);
-}
-
+    var checkJson = checkHtmlFile(DOWNLOADEDHTMLFILE_DEFAULT, program.checks);
+} else {
     var checkJson = checkHtmlFile(program.file, program.checks);
+}
     var outJson = JSON.stringify(checkJson, null, 4);
     console.log(outJson);
 } else {
